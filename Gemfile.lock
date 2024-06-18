@@ -19,7 +19,8 @@ GEM
     rainbow (3.1.1)
     rake (13.2.1)
     regexp_parser (2.8.0)
-    rexml (3.2.5)
+    rexml (3.3.0)
+      strscan
     rspec (3.13.0)
       rspec-core (~> 3.13.0)
       rspec-expectations (~> 3.13.0)
@@ -60,6 +61,7 @@ GEM
     standard-performance (1.0.1)
       lint_roller (~> 1.0)
       rubocop-performance (~> 1.16.0)
+    strscan (3.1.0)
     tty-config (0.6.0)
     tty-cursor (0.7.1)
     tty-spinner (0.9.3)
