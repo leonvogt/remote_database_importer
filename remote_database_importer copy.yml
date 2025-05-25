@@ -1,0 +1,38 @@
+local:
+  database:
+    host: localhost
+    name: oxocare_development
+    user: postgres
+    port: 5433
+
+remote:
+  # Example with ssh connection
+  staging:
+    database:
+      host: postgres-1
+      name: oxocare_staging
+      user: oxocare
+      port: 5432
+    connection:
+      type: "ssh"
+      host: 49.13.10.132
+      ssh_user: root
+      ssh_port: 22
+    custom_commands:
+      - bundle exec rails db:migrate
+      - stellar remove staging
+      - stellar snapshot staging
+  # Example with pg_dump connection
+  production:
+    database:
+      host: postgres-1
+      name: oxocare_production
+      user: oxocare
+      port: "5432"
+    connection:
+      type: "pg_dump"
+      host: 49.13.10.133
+    custom_commands:
+      - bundle exec rails db:migrate
+      - stellar remove production
+      - stellar snapshot production

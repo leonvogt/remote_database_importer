@@ -34,14 +34,14 @@ Whenever you want current live data, you can run the command:
 rake remote_database:import
 ```
 
-![Import-Job sample](readme_assets/import-job.gif)
+![Import-Job sample](assets/import-job.gif)
 
 ### Config
 The settings for the different environments is stored in the `remote_database_importer.yml` file.  
 When you first run the rake task, it will dynamically create this file for you.
 
 
-![Config sample](readme_assets/config_sample.png)
+![Config sample](assets/config_sample.png)
 
 ### DB Access
 The dump of the remote database happens with the tool: [pg_dump](https://www.postgresql.org/docs/current/app-pgdump.html). 

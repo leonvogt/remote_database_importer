@@ -4,6 +4,7 @@ module RemoteDatabaseImporter
     require_relative "colorize"
 
     attr_accessor :config
+    attr_accessor :current_environment
 
     def initialize
       @config = TTY::Config.new
@@ -50,6 +51,7 @@ module RemoteDatabaseImporter
         puts Colorize.green("Database settings:")
         db_name = ask("Enter the DB name for the #{env} environment:", default: "myawesomeapp_#{env}")
         db_user = ask("Enter the DB user for the #{env} environment:", default: "deployer")
+        db_host = ask("Enter the DB host for the #{env} environment:", default: "localhost")
         puts
 
         puts Colorize.green("Connection settings:")
@@ -72,7 +74,8 @@ module RemoteDatabaseImporter
           env.to_s => {
             "database" => {
               "name" => db_name,
-              "user" => db_user
+              "user" => db_user,
+              "host" => db_host
             },
             "connection" => {
               "host" => host,
