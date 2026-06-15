@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.1.6 (2026-06-15)
+- Fix spinner output
+
 ## 0.1.5 (2022-12-03)
 - Define custom commands for each environment
 
