@@ -68,7 +68,7 @@ module RemoteDatabaseImporter
 
     # terminate local db sessions, otherwise the db can't be dropped
     def terminate_current_db_sessions
-      "psql -d #{config.fetch("local_db_name")} -c 'SELECT pg_terminate_backend(pg_stat_activity.pid) FROM pg_stat_activity WHERE datname = current_database() AND pid <> pg_backend_pid();' > #{LOG_FILE}"
+      "psql -d #{config.fetch("local_db_name")} -c 'SELECT pg_terminate_backend(pg_stat_activity.pid) FROM pg_stat_activity WHERE datname = current_database() AND pid <> pg_backend_pid();' >> #{LOG_FILE} 2>&1"
     end
 
     def dump_remote_db
@@ -81,18 +81,18 @@ module RemoteDatabaseImporter
       postgres_port = current_environment["connection"]["postgres_port"]
 
       if dump_type == "ssh_tunnel"
-        "ssh #{ssh_user}@#{host} -p #{ssh_port} 'pg_dump -Fc -U #{db_user} -d #{db_name} -h localhost -C' > #{db_dump_location}"
+        "ssh #{ssh_user}@#{host} -p #{ssh_port} 'pg_dump -Fc -U #{db_user} -d #{db_name} -h localhost -C' > #{db_dump_location} 2>> #{LOG_FILE}"
       else
-        "pg_dump -Fc 'host=#{host} dbname=#{db_name} user=#{db_user} port=#{postgres_port}' > #{db_dump_location}"
+        "pg_dump -Fc 'host=#{host} dbname=#{db_name} user=#{db_user} port=#{postgres_port}' > #{db_dump_location} 2>> #{LOG_FILE}"
       end
     end
 
     def drop_and_create_local_db
-      "rails db:environment:set RAILS_ENV=development; rake db:drop db:create > #{LOG_FILE}"
+      "rails db:environment:set RAILS_ENV=development >> #{LOG_FILE} 2>&1; rake db:drop db:create >> #{LOG_FILE} 2>&1"
     end
 
     def restore_db
-      "pg_restore --jobs 8 --no-privileges --no-owner --dbname #{config.fetch("local_db_name")} #{db_dump_location}"
+      "pg_restore --jobs 8 --no-privileges --no-owner --dbname #{config.fetch("local_db_name")} #{db_dump_location} >> #{LOG_FILE} 2>&1"
     end
 
     def remove_logfile
