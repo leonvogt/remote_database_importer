@@ -5,8 +5,8 @@ source "https://rubygems.org"
 # Specify your gem's dependencies in remote_database_importer.gemspec
 gemspec
 
-gem "rake", "~> 13.2"
+gem "rake", "~> 13.4"
 
 gem "rspec", "~> 3.13"
 
-gem "standard", "~> 1.28"
+gem "standard", "~> 1.55"

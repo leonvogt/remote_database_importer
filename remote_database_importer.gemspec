@@ -29,5 +29,5 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_dependency "tty-config", "~> 0.6"
-  spec.add_dependency "tty-spinner", "~> 0.9"
+  spec.add_dependency "tty-spinner", "~> 0.9.3"
 end
